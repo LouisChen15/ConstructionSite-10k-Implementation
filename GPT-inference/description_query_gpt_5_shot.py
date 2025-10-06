@@ -3,7 +3,7 @@ import os
 import requests
 import base64
 
-api_key= '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'
+api_key= "YOUR_OWN_API_KEY"
 
 # Function to encode the image
 def encode_image(image_path):
@@ -18,8 +18,7 @@ prompts = {
     "prompt5": "Please describe the image. Your description should include the number, location, and activities of people, construction equipment, or material stockpiles in the image. Do not make assumptions and be concise. Please describe with only one paragraph."
 }
 
-# Replace 'your_script.py' with the actual name of the Python script you want to execute
-image_folder = "/home/xuezheng/Desktop/VLM/10k_images"
+image_folder = "10k_images"
 data_split_id = "random1"
 
 # 5-shot Prompts
@@ -66,7 +65,7 @@ image_0000046 = encode_image(os.path.join(image_folder, '0000046.jpg'))
 
 def main():
 
-    with open("/home/xuezheng/Desktop/VLM/Annotations/dataset10k_metadata.json", "r") as file:
+    with open("dataset10k_metadata.json", "r") as file:
         data_split = json.load(file)
     test_split = data_split['test_split']
 

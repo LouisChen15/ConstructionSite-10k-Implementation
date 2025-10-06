@@ -1,0 +1,1 @@
+Images should be downloaded into this folder.

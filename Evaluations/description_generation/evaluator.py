@@ -319,7 +319,7 @@ class DescriptionEvaluator:
         if toSplit == True:
             pred_save_path = "prediction_cache"
             lab_save_path = "label_cache"
-            num_of_parts = 10
+            num_of_parts = 15
             split_larger_dict(predictions, num_of_parts, pred_save_path)
             split_larger_dict(labels, num_of_parts, lab_save_path)
 

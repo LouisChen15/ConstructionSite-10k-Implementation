@@ -4,7 +4,7 @@ import requests
 import base64
 
 
-api_key= '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'
+api_key= "YOUR_OWN_API_KEY"
 
 _PROMPT_SYSTEM = """You are a construction site safety inspector." "You are responsible for viewing the given image and give helpful, and polite answers to your supervisor." "You only answer questions that are asked by the supervisor and in the exact way as requested."""
 
@@ -31,11 +31,10 @@ def encode_image(image_path):
 
 def main():
 
-    # Replace 'your_script.py' with the actual name of the Python script you want to execute
-    image_folder = "/home/xuezheng/Desktop/VLM/10k_images"
+    image_folder = "10k_images"
     data_split_id = "random1"
 
-    with open("/home/xuezheng/Desktop/VLM/Annotations/dataset10k_metadata.json", "r") as file:
+    with open("dataset10k_metadata.json", "r") as file:
         data_split = json.load(file)
     test_split = data_split['test_split']
 

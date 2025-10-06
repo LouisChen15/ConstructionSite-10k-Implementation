@@ -4,14 +4,14 @@ import requests
 import base64
 from retry import retry
 
-api_key= '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'
+api_key= "YOUR_OWN_API_KEY"
 
 # Function to encode the image
 def encode_image(image_path):
   with open(image_path, "rb") as image_file:
     return base64.b64encode(image_file.read()).decode('utf-8')
 
-image_folder = "/home/xuezheng/Desktop/VLM/10k_images"
+image_folder = "10k_images"
 data_split_id = "random1"
 
 
@@ -80,7 +80,7 @@ image_0004235 = encode_image(os.path.join(image_folder, '0004235.jpg'))
 @retry((KeyError), tries = 5, delay = 10, jitter=5)
 def main():
 
-    with open("/home/xuezheng/Desktop/VLM/Annotations/dataset10k_metadata.json", "r") as file:
+    with open("dataset10k_metadata.json", "r") as file:
         data_split = json.load(file)
     test_split = data_split['test_split']
 
