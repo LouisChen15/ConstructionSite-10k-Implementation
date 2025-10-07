@@ -2,7 +2,7 @@
 
 This repository contains implementation scripts and utilities for working with the **ConstructionSite 10k** dataset, a vision-language dataset designed for construction inspection tasks.  
 
-The dataset is hosted on [Hugging Face 🤗 Datasets](https://huggingface.co/datasets/LouisChen15/ConstructionSite) and provides **10,013 construction site images** with rich annotations for captioning, safety violation detection, VQA, and visual grounding.
+The dataset is hosted on [🤗 Hugging Face Datasets: ConstructionSite](https://huggingface.co/datasets/LouisChen15/ConstructionSite) and provides **10,013 construction site images** with rich annotations for captioning, safety violation detection, VQA, and visual grounding for Visual Language Model (VLM) training and testing.
 
 ---
 
@@ -19,7 +19,7 @@ If you use this dataset, please cite the accompanying work (see [Citation](#-cit
 
 ---
 
-## 📂 Tasks & Annotations
+## 💻 Tasks & Annotations
 
 The dataset supports multiple vision-language tasks:
 
@@ -84,7 +84,28 @@ Example annotation for image **0000424.jpg**:
 }
 ```
 
-## 💻 Scripts usage
+## 📂 Repository Structure
+
+### Dataset Loading
+Refer to the [🤗 Hugging Face Datasets documentation](https://huggingface.co/docs/datasets/en/index) for tutorials on how to download, process, and explore the dataset.
+
+### `10k_images/`
+This folder should contain the construction site images downloaded from the Hugging Face dataset in order to run the inference code.
+
+### `Annotations/`
+This folder contains sample annotations from the test set to illustrate the expected format and structure required for running the evaluation scripts in the `Evaluations/` folder.  
+
+Please download the complete annotation files from our [Hugging Face repository](https://huggingface.co/datasets/LouisChen15/ConstructionSite) and ensure they follow the same format before use.
+
+### `Evaluations/`
+- Includes evaluation and helper scripts for all tasks described above and in our [paper](#citation).  
+- Contains testing results from the **Gemini-2.5-Flash** model for demonstration.  
+- Provides **Jupyter Notebooks** that illustrates how to use the evaluation scripts step-by-step.  
+
+### `Inferences/`
+- Contains inference scripts for **GPT-4V** across the three main tasks.  
+- The code was developed in mid-2024 and is intended primarily for **inference and prompt-engineering examples**.  
+- Vision-language models evolve rapidly; for the latest inference or training implementations, please refer to their respective official repositories.
 
 ## 📜 Citation
 
