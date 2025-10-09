@@ -2,7 +2,7 @@
 
 This repository contains implementation scripts and utilities for working with the **ConstructionSite 10k** dataset, a vision-language dataset designed for construction inspection tasks.  
 
-The dataset is hosted on 🤗 [Hugging Face Datasets: ConstructionSite](https://huggingface.co/datasets/LouisChen15/ConstructionSite) and provides **10,013 construction site images** with rich annotations for captioning, safety violation detection, VQA, and visual grounding for Visual Language Model (VLM) training and testing.
+The dataset is hosted on 🤗 [Hugging Face Datasets: ConstructionSite 10k](https://huggingface.co/datasets/LouisChen15/ConstructionSite) and provides **10,013 construction site images** with rich annotations for captioning, safety violation detection, VQA, and visual grounding for Visual Language Model (VLM) training and testing.
 
 ---
 
