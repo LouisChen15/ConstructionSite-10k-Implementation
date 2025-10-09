@@ -85,8 +85,9 @@ Example annotation for image **0000424.jpg**:
 ```
 
 ## 🚀 Getting Started
-- Please refer to the respective Vision-Language Model repositories for their dependency requirements to run inferences.
-- Installing the dependencies for this repository should be straightforward and on a need-to-use basis; therefore, they are not listed in this repository.
+- Please clone this repository to your local machine to open large `.ipynb` files.
+- Please refer to respective Vision-Language Model repositories for their dependency requirements to run inferences.
+- Installing the dependencies for this repository should be straightforward and on a need-to-use basis; therefore, dependency requirements are not specified in this repository.
 - The Java file for the **SPICE** evaluation metric (used for image captioning) has been modified to support longer captions and prevent subprocess crashes.
 
 ## 📂 Repository Structure
