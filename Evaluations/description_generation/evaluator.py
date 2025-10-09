@@ -316,6 +316,7 @@ class DescriptionEvaluator:
         predictions  = self.tokenizer.tokenize(predictions)
         labels = self.tokenizer.tokenize(labels)
 
+        # Create cache files so that the evaluation process does not break due to shortage of memory
         if toSplit == True:
             pred_save_path = "prediction_cache"
             lab_save_path = "label_cache"

@@ -2,23 +2,26 @@ import json
 import os
 import requests
 import base64
+from google import genai
+from google.genai import types
 
-api_key= "YOUR_OWN_API_KEY"
+api_key= 'AIzaSyCQ8Z1j7X4yp9FtV-T4ii-xHLdlOaFvB4Y'
 
 # Function to encode the image
 def encode_image(image_path):
-  with open(image_path, "rb") as image_file:
-    return base64.b64encode(image_file.read()).decode('utf-8')
+  with open(image_path, "rb") as f:
+      return f.read()
 
 prompts = {
     "prompt1": "Please describe the image. Your description should include is there any people, construction equipment, or material stockpiles in the image, where are they approximately located in the image, and how many are they. Please describe the activities. Please also include any outstanding construction elements in the image.", 
     "prompt2": "Please describe the image. Try your best to find the number, location, and activities of people, and construction equipment. Also, find the type and number of material stockpiles in the image. Also describe anything unusual in the image.",
     "prompt3": "Please describe the image. Try your best to find the number, location, and activities of people, and construction equipment. And the type and number of material stockpiles in the image. Also describe anything unusual in the image. Please describe with only one paragraph.",
     "prompt4": "Please describe the image. Your description should include the number, location, and activities of people, construction equipment, or material stockpiles in the image. Please describe with only one paragraph.",
-    "prompt5": "Please describe the image. Your description should include the number, location, and activities of people, construction equipment, or material stockpiles in the image. Do not make assumptions and be concise. Please describe with only one paragraph."
+    "prompt5": "Please describe the image. Your description should include the number, location, and activities of people, construction equipment, or material stockpiles in the image. Do not make assumptions and be concise. Please describe with only one paragraph. No greetings needed, only descriptions are needed in the response."
 }
 
-image_folder = "10k_images"
+# Replace 'your_script.py' with the actual name of the Python script you want to execute
+image_folder = "/home/xuezheng/Desktop/VLM/10k_images"
 data_split_id = "random1"
 
 # 5-shot Prompts
@@ -65,7 +68,7 @@ image_0000046 = encode_image(os.path.join(image_folder, '0000046.jpg'))
 
 def main():
 
-    with open("dataset10k_metadata.json", "r") as file:
+    with open("/home/xuezheng/Desktop/VLM/Annotations/dataset10k_metadata.json", "r") as file:
         data_split = json.load(file)
     test_split = data_split['test_split']
 
@@ -73,7 +76,7 @@ def main():
     image_list = sorted(image_list)
     tot = len(image_list)
             
-    storage_file = "gpt_5_shot_" + data_split_id + "_" + "prompt5" + "_" + "seed1" + ".json"
+    storage_file = "gemini_5_shot_" + data_split_id + "_" + "prompt5" + "_" + "seed1" + ".json"
     print(storage_file)
 
     try:
@@ -88,6 +91,9 @@ def main():
     instance_id_list = []
     reply_list = []
     i = 1+len(finished_list)
+    cached_token=0
+    prompt_token=0
+    candidates_token=0
 
     # Loop through all examples
     for image in image_list_to_finish:
@@ -96,114 +102,73 @@ def main():
         i += 1
 
         image_path = os.path.join(image_folder, image + '.jpg')
-        base64_image = encode_image(image_path)
+        image_bytes = encode_image(image_path)
         instance_id = image
 
-        headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
-        }
-        
-        payload = {
-        "model": "gpt-4-1106-vision-preview",
-        "temperature": 0.2,
-        "top_p": 1.0,
-        "max_tokens": 1024,
-        "messages": [
-            {
-            "role": "system",
-            "content": [
-                {
-                "type": "text",
-                "text": _PROMPT_SYSTEM
-                },
-                {
-                "type": "text",
-                "text": _PROMPT_USER_FEWSHOT_1
-                },
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{image_0000015}",
-                    "detail": "high"
-                }
-                },
-                {
-                "type": "text",
-                "text": _EXAMPLE_FEWSHOT_0000015
-                },
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{image_0000020}",
-                    "detail": "high"
-                }
-                },
-                {
-                "type": "text",
-                "text": _EXAMPLE_FEWSHOT_0000020
-                },
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{image_0000039}",
-                    "detail": "high"
-                }
-                },
-                {
-                "type": "text",
-                "text": _EXAMPLE_FEWSHOT_0000039
-                },
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{image_0000041}",
-                    "detail": "high"
-                }
-                },
-                {
-                "type": "text",
-                "text": _EXAMPLE_FEWSHOT_0000041
-                },
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{image_0000046}",
-                    "detail": "high"
-                }
-                },
-                {
-                "type": "text",
-                "text": _EXAMPLE_FEWSHOT_0000046
-                },
-            ]
-            },
-            {
-            "role": "user",
-            "content": [
-                # {
-                # "type": "text",
-                # "text": "How many images you have received so far, including all?"
-                # },
-                {
-                "type": "text",
-                "text": prompts['prompt5']
-                },
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{base64_image}",
-                    "detail": "high"
-                }
-                }
-            ]
-            }
-        ]
-        }
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            config=types.GenerateContentConfig(
+                system_instruction=_PROMPT_SYSTEM,   
+                temperature=0.2,
+                top_p=1.0,
+                max_output_tokens=1024,
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
+            ),
+            contents=[
+                # === Few-shot examples ===
+                _PROMPT_USER_FEWSHOT_1,
+                types.Part.from_bytes(
+                    data=image_0000015,  
+                    mime_type="image/jpeg",
+                ),
+                _EXAMPLE_FEWSHOT_0000015,
 
-        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-        print(response.json())
-        cleared_reply = response.json()['choices'][0]['message']['content']
+                types.Part.from_bytes(
+                    data=image_0000020,
+                    mime_type="image/jpeg",
+                ),
+                _EXAMPLE_FEWSHOT_0000020,
+
+                types.Part.from_bytes(
+                    data=image_0000039,
+                    mime_type="image/jpeg",
+                ),
+                _EXAMPLE_FEWSHOT_0000039,
+
+                types.Part.from_bytes(
+                    data=image_0000041,
+                    mime_type="image/jpeg",
+                ),
+                _EXAMPLE_FEWSHOT_0000041,
+
+                types.Part.from_bytes(
+                    data=image_0000046,
+                    mime_type="image/jpeg",
+                ),
+                _EXAMPLE_FEWSHOT_0000046,
+
+                # === User request ===
+                prompts["prompt5"],
+                types.Part.from_bytes(
+                    data=image_bytes,    
+                    mime_type="image/jpeg",
+                ),
+            ],
+        )
+
+        if response.usage_metadata.cached_content_token_count is None:
+            cached_token += 0
+            prompt_token += response.usage_metadata.prompt_token_count
+        else:
+            cached_token += response.usage_metadata.cached_content_token_count
+            prompt_token += (response.usage_metadata.prompt_token_count - response.usage_metadata.cached_content_token_count)
+        candidates_token += response.usage_metadata.candidates_token_count
+        print(cached_token)
+        print(prompt_token)
+        print(candidates_token)
+        print(response.usage_metadata)
+        cleared_reply = response.text
 
         instance_id_list.append(instance_id)
         reply_list.append(cleared_reply)
