@@ -6,14 +6,14 @@ from retry import retry
 from google import genai
 from google.genai import types
 
-api_key= 'AIzaSyCQ8Z1j7X4yp9FtV-T4ii-xHLdlOaFvB4Y'
+api_key= 'Your Own API Key'
 
 # Function to encode the image
 def encode_image(image_path):
   with open(image_path, "rb") as f:
       return f.read()
 
-image_folder = "/home/xuezheng/Desktop/VLM/10k_images"
+image_folder = "../10k_images"
 data_split_id = "random1"
 
 
@@ -82,7 +82,7 @@ image_0004235 = encode_image(os.path.join(image_folder, '0004235.jpg'))
 @retry((KeyError), tries = 5, delay = 10, jitter=5)
 def main():
 
-    with open("/home/xuezheng/Desktop/VLM/Annotations/dataset10k_metadata.json", "r") as file:
+    with open("../Annotations/dataset10k_metadata.json", "r") as file:
         data_split = json.load(file)
     test_split = data_split['test_split']
 

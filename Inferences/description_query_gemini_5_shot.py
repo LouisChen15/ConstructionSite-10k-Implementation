@@ -5,7 +5,7 @@ import base64
 from google import genai
 from google.genai import types
 
-api_key= 'AIzaSyCQ8Z1j7X4yp9FtV-T4ii-xHLdlOaFvB4Y'
+api_key= 'Your Own API Key'
 
 # Function to encode the image
 def encode_image(image_path):
@@ -21,7 +21,7 @@ prompts = {
 }
 
 # Replace 'your_script.py' with the actual name of the Python script you want to execute
-image_folder = "/home/xuezheng/Desktop/VLM/10k_images"
+image_folder = "../10k_images"
 data_split_id = "random1"
 
 # 5-shot Prompts
@@ -68,7 +68,7 @@ image_0000046 = encode_image(os.path.join(image_folder, '0000046.jpg'))
 
 def main():
 
-    with open("/home/xuezheng/Desktop/VLM/Annotations/dataset10k_metadata.json", "r") as file:
+    with open("../Annotations/dataset10k_metadata.json", "r") as file:
         data_split = json.load(file)
     test_split = data_split['test_split']
 
