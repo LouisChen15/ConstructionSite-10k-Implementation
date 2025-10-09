@@ -89,6 +89,7 @@ Example annotation for image **0000424.jpg**:
 - Please refer to respective Vision-Language Model repositories for their dependency requirements to run inferences.
 - Installing the dependencies for this repository should be straightforward and on a need-to-use basis; therefore, dependency requirements are not specified in this repository.
 - The Java file for the **SPICE** evaluation metric (used for image captioning) has been modified to support longer captions and prevent subprocess crashes.
+- No matter how advanced a large language model is, natural language processing tasks inherently require extensive pre-processing and post-processing. The specific methods often vary across models, so patience and persistence are key to excelling in this field.
 
 ## 📂 Repository Structure
 
