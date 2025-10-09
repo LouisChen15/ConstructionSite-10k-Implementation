@@ -106,7 +106,7 @@ This folder contains sample annotations from the test set to illustrate the expe
 - Provides **Jupyter Notebooks** that illustrates how to use the evaluation scripts step-by-step.  
 
 ### `Inferences/`
-- Contains inference scripts for *Gemini-2.5-Flash** across the three main tasks.  
+- Contains inference scripts for **Gemini-2.5-Flash** across the three main tasks.  
 - The code was developed in mid-2024 and is intended primarily for **inference and prompt-engineering examples**.  
 - Vision-language models evolve rapidly; for the latest inference or training implementations, please refer to their respective official repositories.
 
