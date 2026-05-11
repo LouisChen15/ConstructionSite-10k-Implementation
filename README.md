@@ -115,13 +115,13 @@ This folder contains sample annotations from the test set to illustrate the expe
 ## 📜 Citation
 
 ```bibtex
-@misc{chen2025largepretrainedvisionlanguage,
-  title        = {Are Large Pre-trained Vision Language Models Effective Construction Safety Inspectors?}, 
-  author       = {Xuezheng Chen and Zhengbo Zou},
-  year         = {2025},
-  eprint       = {2508.11011},
-  archivePrefix= {arXiv},
-  primaryClass = {cs.CV},
-  url          = {https://arxiv.org/abs/2508.11011},
+@article{chen2026largepretrainedvisionlanguage,
+    title={Are large pre-trained vision language models effective construction safety inspectors}, 
+    author={Chen, Xuezheng and Zou, Zhengbo},
+    year={2026},
+    volume={7},
+    pages={e11},
+    journal={Data-Centric Engineering},
+    doi={10.1017/dce.2026.10044}, 
 }
 ```
